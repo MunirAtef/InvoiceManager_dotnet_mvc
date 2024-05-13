@@ -1,0 +1,138 @@
+﻿@model IEnumerable<InvoiceManager.Client>
+
+@{
+    ViewBag.Title = "Clients";
+}
+
+<div style="text-align: center">
+    <h2>CLIENTS</h2>
+</div>
+
+
+@foreach (var item in Model)
+{
+<div class="client-card" style="align-content: center">
+    <div class="client-data">
+        <img src="@Html.DisplayFor(modelItem => item.imageUrl)" class="image" />
+        <div class="name-section">
+            <span class="client-name">@Html.DisplayFor(modelItem => item.fullName)</span>
+            @Html.DisplayFor(modelItem => item.C_address)
+        </div>
+    </div>
+    
+
+    <div class="edit-links">
+        <button class="link" onclick="window.location.href = '@Url.Action("Edit", "Clients", new { id = item.id })'">
+            Edit
+        </button>
+        <button class="link" onclick="window.location.href = '@Url.Action("Details", "Clients", new { id = item.id })'">
+            Details
+        </button>
+        <button class="link" onclick="window.location.href = '@Url.Action("Delete", "Clients", new { id = item.id })'">
+            Delete
+        </button>
+    </div>
+</div>
+}
+
+<div style="height: 2px; background-color: #aaa; width: 100%"></div>
+
+<button onclick="window.location.href = '@Url.Action("Create", "Clients", new {})'" class="add-client">
+    Create New Client
+</button>
+
+
+<style>
+    .page-title {
+        width: 100%;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        
+    }
+
+    .image {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        display: inline-block;
+        margin: 5px 10px 5px 5px
+    }
+
+    .client-data {
+        box-shadow: #eee 5px 5px unset;
+        background-color: #eee;
+        border-radius: 5px;
+        border: 1px solid #555;
+        display: flex;
+        justify-content: left;
+        justify-items: center
+    }
+
+    .client-card {
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .client-card:hover > .edit-links {
+        visibility: visible;
+        max-height: 40px;
+        transform: scale(1);
+    }
+
+    .client-name {
+        font-weight: bold;
+        display: block;
+        margin: 5px 0
+    }
+
+    .edit-links {
+        visibility: collapse;
+        margin-left: 0;
+        transform: scale(0.8);
+
+        transition: transform 1s;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+    }
+
+    .link {
+        margin: 5px 1%;
+        display: inline-block;
+        height: 30px;
+        width: 31%;
+        align-items: center;
+        align-content: center;
+        padding: 5px;
+        border-radius: 10px
+    }
+
+    .add-client {
+        width: 50%;
+        border-radius: 60px;
+        margin: 10px 25%;
+    }
+
+    
+
+    button {
+        background-color: #099;
+        color: white;
+        transform: scale(1);
+        transition: transform 1s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        transition: transform 1s;
+    }
+</style>
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+﻿@model InvoiceManager.Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.fullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.fullName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

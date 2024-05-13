@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvoiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fullName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="imageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="C_address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoices__client__38996AB5" FromRole="Clients" ToRole="Invoices" />
+  </EntityType>
+  <EntityType Name="InvoiceItem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="invoiceId" Type="Int32" />
+    <Property Name="item" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="unitPrice" Type="Double" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK__InvoiceIt__invoi__3B75D760" FromRole="InvoiceItems" ToRole="Invoices" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="clientId" Type="Int32" />
+    <Property Name="invoiceDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Client" Relationship="Self.FK__Invoices__client__38996AB5" FromRole="Invoices" ToRole="Clients" />
+    <NavigationProperty Name="InvoiceItems" Relationship="Self.FK__InvoiceIt__invoi__3B75D760" FromRole="Invoices" ToRole="InvoiceItems" />
+  </EntityType>
+  <Association Name="FK__Invoices__client__38996AB5">
+    <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Invoices" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Invoices">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoiceIt__invoi__3B75D760">
+    <End Role="Invoices" Type="Self.Invoice" Multiplicity="0..1" />
+    <End Role="InvoiceItems" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoices">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="InvoiceItems">
+        <PropertyRef Name="invoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InvoiceEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="InvoiceItems" EntityType="Self.InvoiceItem" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+    <AssociationSet Name="FK__Invoices__client__38996AB5" Association="Self.FK__Invoices__client__38996AB5">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Invoices" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoiceIt__invoi__3B75D760" Association="Self.FK__InvoiceIt__invoi__3B75D760">
+      <End Role="Invoices" EntitySet="Invoices" />
+      <End Role="InvoiceItems" EntitySet="InvoiceItems" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

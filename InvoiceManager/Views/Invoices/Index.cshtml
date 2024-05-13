@@ -1,0 +1,64 @@
+﻿@model IEnumerable<InvoiceManager.Invoice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align: center; font-weight: bold">INVOICES</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Invoice Date
+        </th>
+        <th>
+            Client Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.invoiceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.fullName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<button onclick="window.location.href = '@Url.Action("Create", "Invoices", new {})'" class="add-invoice">
+    Create New Invoice
+</button>
+
+
+<style>
+    .add-invoice {
+        width: 50%;
+        border-radius: 60px;
+        margin: 10px 25%;
+    }
+
+    button {
+        background-color: #099;
+        color: white;
+        transform: scale(1);
+        transition: transform 1s;
+    }
+
+        button:hover {
+            transform: scale(1.1);
+            transition: transform 1s;
+        }
+</style>
